@@ -1,0 +1,11 @@
+.product-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+
+    .error-message {
+        color: #e53935;
+        font-size: 0.85rem;
+        margin-top: 0.2rem;
+    }
+}

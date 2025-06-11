@@ -1,0 +1,16 @@
+<div class="platform-container">
+
+    <header class="platform-header">
+      <app-header></app-header>
+    </header>
+  
+ <nav class="platform-navigation" [class.open]="sidenavOpen">
+        <app-navigation (sidenavToggle)="sidenavOpen = $event"></app-navigation>
+      </nav>
+  
+    <main class="platform-content" [class.sidenav-open]="sidenavOpen">
+      <router-outlet></router-outlet>
+    </main>
+  
+  </div>
+  

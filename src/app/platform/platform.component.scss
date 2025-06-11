@@ -1,0 +1,47 @@
+.platform-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .platform-header {
+    height: 64px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000; 
+  }
+  
+  .platform-navigation {
+    position: fixed;
+    top: 0px;
+    left: 0;
+    width: 60px; 
+    height: 100% ;
+    right: 0;
+    background-color: #333;
+    overflow: hidden;
+    transition: width 0.3s ease;
+    z-index: 1100; 
+  
+    &.open {
+      width: 200px; 
+    }
+  }
+  
+  .platform-content {
+    margin-top: 64px;
+    margin-left: 60px;
+    padding: 16px;
+    transition: margin-left 0.3s ease;
+  
+    &.sidenav-open {
+      margin-left: 250px;
+    }
+  }
+  
+  .spacer {
+    flex: 1 1 auto;
+  }
+  
