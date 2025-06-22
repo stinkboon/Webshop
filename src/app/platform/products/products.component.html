@@ -1,14 +1,15 @@
 <div class="products-container">
     <div class="products-header">
         <h1>Products</h1>
-        <button mat-raised-button color="primary" routerLink="/products/create">Nieuw Product</button>
+        <button mat-raised-button color="primary" routerLink="/platform/products/create">Nieuw Product</button>
     </div>
     <div class="products-list">
         <table class="table">
             <thead>
                 <tr>
                     <th>Naam</th>
-                    <th>Prijs</th>
+                    <th>Prijs per stuk</th>
+                    <th>Prijs met korting</th>
                     <th>Stock</th>
                     <th>Acties</th>
                 </tr>
@@ -16,13 +17,14 @@
             <tbody>
                 <tr *ngFor="let product of products">
                     <td>{{ product.name }}</td>
+                    <td>{{ product.price | currency }}</td>
                     <td>{{ product.discountedPrice | currency }}</td>
                     <td>{{ product.stock }}</td>
                     <td>
-                        <button mat-icon-button color="primary" [routerLink]="['/products/edit', product.id]">
+                        <button mat-icon-button color="primary" [routerLink]="['/platform/products/edit', product.id]">
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <button mat-icon-button color="primary" [routerLink]="['/products', product.id]">
+                        <button mat-icon-button color="primary" [routerLink]="['/platform/products', product.id]">
                             <mat-icon>visibility</mat-icon>
                         </button>
                         <button mat-icon-button color="primary" (click)="deleteProduct(product.id)">

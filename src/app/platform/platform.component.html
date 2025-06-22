@@ -1,16 +1,18 @@
 <div class="platform-container">
 
-    <header class="platform-header">
-      <app-header></app-header>
-    </header>
-  
- <nav class="platform-navigation" [class.open]="sidenavOpen">
-        <app-navigation (sidenavToggle)="sidenavOpen = $event"></app-navigation>
-      </nav>
-  
-    <main class="platform-content" [class.sidenav-open]="sidenavOpen">
-      <router-outlet></router-outlet>
-    </main>
-  
-  </div>
-  
+  <header *ngIf="showSidenav" class="platform-header">
+    <app-header></app-header>
+  </header>
+
+  <nav *ngIf="showSidenav" class="platform-navigation" [class.open]="sidenavOpen">
+    <app-navigation (sidenavToggle)="sidenavOpen = $event"></app-navigation>
+  </nav>
+
+  <main class="platform-content"
+  [class.sidenav-open]="sidenavOpen && showSidenav"
+  [class.header-visible]="showSidenav">
+<router-outlet></router-outlet>
+</main>
+
+
+</div>

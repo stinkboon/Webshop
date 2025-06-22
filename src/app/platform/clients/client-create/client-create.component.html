@@ -1,0 +1,55 @@
+<form [formGroup]="customerForm" (ngSubmit)="createCustomer()" class="client-form">
+
+    <h1 class="form-title">Nieuwe cliënt aanmaken</h1>
+  
+    <div class="form-grid">
+      <mat-form-field appearance="outline">
+        <mat-label>Voornaam</mat-label>
+        <input matInput formControlName="firstName" required />
+        <mat-error *ngIf="customerForm.get('firstName')?.invalid">Verplicht veld</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline">
+        <mat-label>Achternaam</mat-label>
+        <input matInput formControlName="lastName" required />
+        <mat-error *ngIf="customerForm.get('lastName')?.invalid">Verplicht veld</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" required />
+        <mat-error *ngIf="customerForm.get('email')?.invalid">Ongeldig e-mailadres</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline">
+        <mat-label>Telefoonnummer</mat-label>
+        <input matInput formControlName="phoneNumber" type="tel" required />
+        <mat-error *ngIf="customerForm.get('phoneNumber')?.invalid">Verplicht veld</mat-error>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline">
+        <mat-label>Adres</mat-label>
+        <input matInput formControlName="address" required />
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline">
+        <mat-label>Stad</mat-label>
+        <input matInput formControlName="city" required />
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline">
+        <mat-label>Provincie</mat-label>
+        <input matInput formControlName="state" required />
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline">
+        <mat-label>Postcode</mat-label>
+        <input matInput formControlName="zip" required />
+      </mat-form-field>
+    </div>
+  
+    <button mat-raised-button color="primary" [disabled]="!customerForm.valid" (click)="createCustomer()" class="create-client-btn">
+      Cliënt aanmaken
+    </button>
+  </form>
+  

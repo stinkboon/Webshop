@@ -1,5 +1,42 @@
-<p>pgadmin tabel, 
-    side tabel border
-    ,
-    
-</p>
+<div class="customer-container">
+    <div class="customer-header">
+        <h1>Clienten</h1>
+        <button mat-raised-button color="primary" routerLink="/platform/clients/create">Nieuwe client</button>
+    </div>
+    <div class="customer-list">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone number</th>
+                    <th>Actions</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let customer of customers">
+                    <td>{{ customer.firstName }}</td>
+                    <td>{{ customer.lastName }}</td>
+                    <td>{{ customer.email }}</td>
+                    <td>{{ customer.phoneNumber }}</td>
+     
+                    
+            
+                    <td>
+                        <button mat-icon-button color="primary" [routerLink]="['/platform/clients/edit', customer.id]">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="primary" [routerLink]="['/platform/clients', customer.id]">
+                            <mat-icon>visibility</mat-icon>
+                        </button>
+                        <button mat-icon-button color="primary" (click)="deleteCustomer(customer.id)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

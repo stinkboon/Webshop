@@ -1,0 +1,59 @@
+<div class="page-wrapper">
+  <div class="register-box">
+    <div class="register-image-section">
+      <img src="assets/register-illustration.svg" alt="Registratie illustratie" />
+    </div>
+
+    <div class="register-form-section">
+      <img src="assets/Logo.png" alt="Logo" class="logo" />
+
+      <mat-card class="register-card">
+        <h1 class="title">Maak een account aan</h1>
+
+        <form [formGroup]="registerForm" (ngSubmit)="register()" class="register-form">
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" />
+            <mat-error *ngIf="registerForm.get('email')?.hasError('required')">
+              Email is verplicht
+            </mat-error>
+            <mat-error *ngIf="registerForm.get('email')?.hasError('email')">
+              Ongeldig e-mailadres
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Wachtwoord</mat-label>
+            <input matInput type="password" formControlName="password" />
+            <mat-error *ngIf="registerForm.get('password')?.hasError('required')">
+              Wachtwoord is verplicht
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="fill" class="full-width">
+            <mat-label>Bevestig wachtwoord</mat-label>
+            <input matInput type="password" formControlName="confirmPassword" />
+            <mat-error *ngIf="registerForm.get('confirmPassword')?.hasError('required')">
+              Bevestig wachtwoord is verplicht
+            </mat-error>
+            <mat-error *ngIf="registerForm.errors?.['passwordMismatch'] && (registerForm.get('confirmPassword')?.touched || registerForm.get('confirmPassword')?.dirty)">
+              Wachtwoorden komen niet overeen
+            </mat-error>
+          </mat-form-field>
+
+          <button mat-raised-button color="primary" class="submit-button" [disabled]="registerForm.invalid" type="submit">
+            Registreren
+          </button>
+
+          <div *ngIf="errorMessage" class="error-message">
+            {{ errorMessage }}
+          </div>
+
+          <div class="redirect-link">
+            <a routerLink="/login">Heb je al een account? Inloggen</a>
+          </div>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+</div>

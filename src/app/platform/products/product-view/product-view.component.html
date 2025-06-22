@@ -9,7 +9,13 @@
                 <span matLine><strong>Omschrijving:</strong> {{ product.description }}</span>
             </mat-list-item>
             <mat-list-item>
-                <span matLine><strong>Prijs:</strong> {{ product.price | currency }}</span>
+                <span matLine><strong>Prijs per stuk:</strong> {{ product.price | currency }}</span>
+            </mat-list-item>
+            <mat-list-item>
+                <span matLine><strong>Prijs met korting:</strong> {{ product.discountedPrice | currency }}</span>
+            </mat-list-item>
+            <mat-list-item>
+                <span matLine><strong>Korting percentage:</strong> {{ product.discountPercentage }}%</span>
             </mat-list-item>
             <mat-list-item>
                 <span matLine><strong>Voorraad:</strong> {{ product.stock }}</span>

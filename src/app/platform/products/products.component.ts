@@ -7,7 +7,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 import { ProductViewModel } from '../../core/datacontracts/ProductViewModel';
 import { ProductService } from '../../core/services/product.service';
-import { ConfirmDialogComponent } from '../shared/confirm-dialog/confirm-dialog.component'; 
+import { ConfirmDialogComponent } from '../confirm-button/confirm-dialog/confirm-dialog.component'; 
 
 @Component({
   selector: 'app-products',

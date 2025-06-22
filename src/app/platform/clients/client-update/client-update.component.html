@@ -1,0 +1,48 @@
+<form [formGroup]="customerForm" class="customer-form" *ngIf="customerForm">
+    <h1>Pas de Client aan</h1>
+
+    <mat-form-field appearance="fill" class="form-field">
+        <mat-label>First Name</mat-label>
+        <input matInput type="text" formControlName="firstName" required class="input-name" />
+      </mat-form-field>
+      
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Last Name</mat-label>
+        <input matInput type="text" formControlName="lastName" required class="input-name" />
+      </mat-form-field>
+      
+    
+    <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" required class="input-email" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Phone number</mat-label>
+        <input matInput type="tel" formControlName="phoneNumber" required class="input-phone" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Address</mat-label>
+        <input matInput type="text" formControlName="address" required class="input-address" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+        <mat-label>City</mat-label>
+        <input matInput type="text" formControlName="city" required class="input-city" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+        <mat-label>State</mat-label>
+        <input matInput type="text" formControlName="state" required class="input-state" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Zip Code</mat-label>
+        <input matInput type="text" formControlName="zip" required class="input-zip" />
+    </mat-form-field>
+
+<button mat-raised-button color="primary" [disabled]="!customerForm.valid" (click)="updateCustomer()">
+    client aanpassen
+</button>
+</form>

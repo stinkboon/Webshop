@@ -59,7 +59,7 @@ export class ProductUpdateComponent {
       product.id = this.productId;
       this.productService.update(product).subscribe({
         next: (_) => {
-          this.router.navigate(['/products']);
+          this.router.navigate(['/platform/products']);
         },
         error: (err) => {
           console.error('Product update failed:', err);

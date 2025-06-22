@@ -1,0 +1,51 @@
+<div [class.dark-theme]="darkMode" class="login-container">
+  <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form" novalidate>
+    <img src="assets/Logo.png" alt="Logo" class="login-logo" />
+    <h1>Welkom terug</h1>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email" autocomplete="email" />
+      <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+        Email is verplicht
+      </mat-error>
+      <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+        Ongeldig e-mailadres
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Wachtwoord</mat-label>
+      <input matInput type="password" formControlName="password" autocomplete="current-password" />
+      <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+        Wachtwoord is verplicht
+      </mat-error>
+    </mat-form-field>
+
+    <div *ngIf="loginFailed" class="error-message">
+      Onjuiste email of wachtwoord.
+    </div>
+
+    <button mat-raised-button color="primary" class="login-button" type="submit" [disabled]="loginForm.invalid || loading">
+      <mat-spinner *ngIf="loading" diameter="20" strokeWidth="3"></mat-spinner>
+      <span *ngIf="!loading">Inloggen</span>
+    </button>
+
+    <div class="login-links">
+      <a routerLink="/forgot-password">Wachtwoord vergeten?</a>
+      <span>•</span>
+      <a routerLink="/register">Registreren</a>
+    </div>
+
+    <div class="social-login">
+      <p>Of inloggen met:</p>
+      <button mat-stroked-button color="primary" (click)="loginWithGoogle()" aria-label="Login met Google">
+        <img src="assets/google-logo.svg" alt="Google login" class="social-icon google" />
+      </button>
+      <button mat-stroked-button color="primary" (click)="loginWithFacebook()" aria-label="Login met Facebook">
+        <img src="assets/facebook-logo.svg" alt="" class="social-icon" /> 
+      </button>
+    </div>
+
+  </form>
+</div>

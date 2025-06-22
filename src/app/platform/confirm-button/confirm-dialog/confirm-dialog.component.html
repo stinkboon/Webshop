@@ -2,7 +2,7 @@
 <mat-dialog-content>
   <p>{{ data.message || 'Are you sure you want to continue?' }}</p>
 </mat-dialog-content>
-<mat-dialog-actions align="end">
+<mat-dialog-actions fxLayoutAlign="end">
   <button mat-button (click)="onCancel()">Cancel</button>
   <button mat-raised-button color="warn" (click)="onConfirm()">Delete</button>
 </mat-dialog-actions>

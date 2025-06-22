@@ -31,15 +31,21 @@
   }
   
   .platform-content {
-    margin-top: 64px;
-    margin-left: 60px;
     padding: 16px;
     transition: margin-left 0.3s ease;
   
+    margin-left: 60px; // ← dit is de ingeklapte breedte van .sidebar
+    margin-top: 0;
+  
+    &.header-visible {
+      margin-top: 64px;
+    }
+  
     &.sidenav-open {
-      margin-left: 250px;
+      margin-left: 200px; // ← dit is de uitgeklapte breedte van .sidebar
     }
   }
+  
   
   .spacer {
     flex: 1 1 auto;

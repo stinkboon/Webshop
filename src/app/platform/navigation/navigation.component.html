@@ -1,28 +1,28 @@
 <nav class="sidebar" [class.open]="isOpen">
     
-  <h1 class="logo-container">
-    <img src="assets/Logo.png" alt="Logo" class="logo"
- alt="Logo" class="logo" />
+  <h1 [class.a-open]="isOpen" class="logo-container">
+    <img 
+    src="assets/Logo.png" alt="Logo" class="logo" />
     <span *ngIf="isOpen">WebShop</span>
   </h1>
   
 
-  <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+  <a [class.a-open]="isOpen" routerLink="/platform/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
     <mat-icon>dashboard</mat-icon>
     <span *ngIf="isOpen">Dashboard</span>
   </a>
   
-  <a routerLink="/category" routerLinkActive="active">
+  <a [class.a-open]="isOpen" routerLink="/platform/category" routerLinkActive="active">
     <mat-icon>category</mat-icon>
     <span *ngIf="isOpen">Categorieën</span>
   </a>
   
-  <a [class.a-open]="isOpen" routerLink="/products" routerLinkActive="active">
+  <a [class.a-open]="isOpen" routerLink="/platform/products" routerLinkActive="active">
     <mat-icon>shopping_cart</mat-icon>
     <span *ngIf="isOpen">Producten</span>
   </a>
   
-  <a routerLink="/clients" routerLinkActive="active">
+  <a [class.a-open]="isOpen" routerLink="/platform/clients" routerLinkActive="active">
     <mat-icon>people</mat-icon>
     <span *ngIf="isOpen">Klanten</span>
   </a>

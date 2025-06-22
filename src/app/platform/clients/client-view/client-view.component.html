@@ -1,0 +1,38 @@
+<div class="customer-view mat-elevation-z4" style="padding: 24px; border-radius: 8px; background: var(--background, #fff);">
+    <h2 class="mat-headline-5" color="primary">Client Details</h2>
+    <div *ngIf="customer" class="mat-body-1">
+        <mat-list>
+            <mat-list-item>
+                <span matLine><strong>First Name:</strong> {{ customer.firstName }}</span>
+            </mat-list-item>
+            <mat-list-item>
+                <span matLine><strong>Last Name:</strong> {{ customer.lastName }}</span>
+            </mat-list-item>
+            <mat-list-item>
+                <span matLine><strong>Email:</strong> {{ customer.email }}</span>
+            </mat-list-item>
+            <mat-list-item>
+                <span matLine><strong>Phone Number:</strong> {{ customer.phoneNumber }}</span>
+            </mat-list-item>
+            <mat-list-item>
+                <span matLine><strong>Address:</strong> {{ customer.address }}</span>      
+            </mat-list-item>
+            <mat-list-item>
+                <span matLine><strong>City:</strong> {{ customer.city }}</span>
+            </mat-list-item>
+            <mat-list-item>
+                <span matLine><strong>State:</strong> {{ customer.state }}</span>
+            </mat-list-item>
+            <mat-list-item>
+                <span matLine><strong>Zip:</strong> {{ customer.zip }}</span>
+            </mat-list-item>
+            
+
+
+        </mat-list>
+    </div>
+    <div *ngIf="!customer" class="mat-body-1">
+        <mat-progress-spinner mode="indeterminate" diameter="32" color="primary"></mat-progress-spinner>
+        <span style="margin-left: 16px;">Laden...</span>
+    </div>
+</div>
