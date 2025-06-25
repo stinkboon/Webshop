@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../core/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 export const passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
@@ -15,7 +16,7 @@ export const passwordMatchValidator: ValidatorFn = (control: AbstractControl): V
   const confirmPassword = control.get('confirmPassword');
 
   if (!password || !confirmPassword) {
-    return null;  
+    return null;
   }
 
   return password.value === confirmPassword.value ? null : { passwordMismatch: true };
@@ -33,6 +34,7 @@ export const passwordMatchValidator: ValidatorFn = (control: AbstractControl): V
     MatInputModule,
     MatButtonModule,
     MatCardModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
@@ -56,22 +58,27 @@ export class RegisterComponent {
     }, { validators: passwordMatchValidator });
   }
 
+  loading: boolean = false;
+
   register() {
     if (this.registerForm.valid) {
-      const { email, password } = this.registerForm.value;  // haal alleen deze twee op
+      this.loading = true; // Set loading to true when the request starts
+      const { email, password } = this.registerForm.value;
       this.authService.register({ email, password }).subscribe({
         next: () => {
+          this.loading = false; // Set loading to false when the request completes successfully
           this.snackBar.open('Registratie gelukt!', 'OK', {
-            duration: 8000, 
-            panelClass: ['snackbar-success'] 
+            duration: 8000,
+            panelClass: ['snackbar-success']
           });
+
           this.router.navigate(['/login']);
         },
         error: (err: { error: { message: string; }; }) => {
+          this.loading = false; // Set loading to false when the request fails
           this.errorMessage = err.error.message || 'Registratie mislukt';
         }
       });
     }
-    
   }
-}  
+}

@@ -62,16 +62,11 @@ export class LoginComponent {
   }
 
   loginWithGoogle() {
-    // TODO: implementeer social login via Google
     alert('Login met Google nog niet geïmplementeerd');
   }
 
   loginWithFacebook() {
-    // TODO: implementeer social login via Facebook
     alert('Login met Facebook nog niet geïmplementeerd');
   }
 
-  toggleDarkMode() {
-    this.darkMode = !this.darkMode;
-  }
 }

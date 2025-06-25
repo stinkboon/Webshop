@@ -19,6 +19,11 @@ export class AuthService {
     return this.http.post<LoginResponse>(`${this.Url}/auth/login`, loginDto);
 
   }
+
+
+
+
+  
   public register(data: { email: string; password: string }): Observable<any> {
     return this.http.post(`${this.Url}/auth/register`, data);
   }

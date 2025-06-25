@@ -10,6 +10,5 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
         return next(authReq);
     }
 
-    // Laat alle andere requests ongemoeid
     return next(req);
 };
