@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-forgot-password',
+  selector: 'app-reset-password',
   standalone: true,
   imports: [
     CommonModule,
@@ -21,34 +21,39 @@ import { MatButtonModule } from '@angular/material/button';
     MatInputModule,
     MatButtonModule
   ],
-  templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.scss']
+  templateUrl: './reset-password.component.html',
+  styleUrls: ['./reset-password.component.scss']
 })
-export class ForgotPasswordComponent implements OnInit {
-  forgotForm: FormGroup;
+export class ResetPasswordComponent implements OnInit {
+  resetForm: FormGroup;
+  token: string = '';
 
   constructor(
     private fb: FormBuilder,
+    private route: ActivatedRoute,
     private http: HttpClient,
     private snackBar: MatSnackBar,
     private router: Router
   ) {
-    this.forgotForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]]
+    this.resetForm = this.fb.group({
+      newPassword: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Haal het token op uit de URL, bijvoorbeeld: /reset-password?token=abc123
+    this.token = this.route.snapshot.queryParamMap.get('token') || '';
+  }
 
-  sendReset() {
-    if (this.forgotForm.valid) {
-      const email = this.forgotForm.value.email;
-      // Veronderstel dat de backend op poort 5000 draait; pas dit aan indien nodig.
-      this.http.post('http://localhost:5103/api/auth/forgot-password', email, {
-        responseType: 'json'
-      }).subscribe({
+  resetPassword() {
+    if (this.resetForm.valid && this.token) {
+      const data = {
+        token: this.token,
+        newPassword: this.resetForm.value.newPassword
+      };
+      this.http.post('http://localhost:5103/api/auth/reset-password', data).subscribe({
         next: () => {
-          this.snackBar.open('Resetlink verzonden!', 'Sluiten', { duration: 3000 });
+          this.snackBar.open('Wachtwoord succesvol gereset!', 'Sluiten', { duration: 3000 });
           this.router.navigate(['/login']);
         },
         error: (err) => {

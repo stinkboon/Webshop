@@ -1,7 +1,9 @@
 import { Routes } from '@angular/router';
 
+import { AuthGuard } from './core/services/authGuard';
+import { PlatformComponent } from './platform/platform.component';
+import { AuthLayoutComponent } from './authentication/auth-layout/auth.layout.component';
 import { DashboardComponent } from './platform/dashboard/dashboard.component';
-import { LoginComponent } from './authentication/login/login.component';
 import { CategoryComponent } from './platform/category/category.component';
 
 // Products
@@ -15,9 +17,7 @@ import { CustomerComponent } from './platform/clients/clients.component';
 import { CustomerCreateComponent } from './platform/clients/client-create/client-create.component';
 import { CustomerUpdateComponent } from './platform/clients/client-update/client-update.component';
 import { CustomerViewComponent } from './platform/clients/client-view/client-view.component';
-import { AuthGuard } from './core/services/authGuard';
-import { PlatformComponent } from './platform/platform.component';
-import { AuthLayoutComponent } from './authentication/auth-layout/auth.layout.component';
+
 
 export const routes: Routes = [
 
@@ -29,11 +29,13 @@ export const routes: Routes = [
       { path: 'login', loadComponent: () => import('./authentication/login/login.component').then(m => m.LoginComponent) },
       { path: 'register', loadComponent: () => import('./authentication/register/register.component').then(m => m.RegisterComponent) },
       { path: 'forgot-password', loadComponent: () => import('./authentication/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent) },
+      { path: 'reset-password', loadComponent: () => import('./authentication/reset-password/reset-password.component').then(m => m.ResetPasswordComponent) },
     ]
   },
-  
 
-  {path: 'platform',
+
+  {
+    path: 'platform',
     component: PlatformComponent,
     canActivate: [AuthGuard],
     children: [
@@ -41,23 +43,25 @@ export const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
 
       // products
-      {path: 'products', 
+      {
+        path: 'products',
         children: [
-        { path: '', component: ProductComponent },
-        { path: 'create', component: ProductCreateComponent },
-        { path: 'edit/:id', component: ProductUpdateComponent },
-        { path: ':id', component: ProductViewComponent }]
+          { path: '', component: ProductComponent },
+          { path: 'create', component: ProductCreateComponent },
+          { path: 'edit/:id', component: ProductUpdateComponent },
+          { path: ':id', component: ProductViewComponent }]
       },
 
       // Clients
-      {path: 'clients',
-      children : [
-        { path: '', component: CustomerComponent },
-        { path: 'create', component: CustomerCreateComponent },
-        { path: 'edit/:id', component: CustomerUpdateComponent },
-        { path: ':id', component: CustomerViewComponent }]
+      {
+        path: 'clients',
+        children: [
+          { path: '', component: CustomerComponent },
+          { path: 'create', component: CustomerCreateComponent },
+          { path: 'edit/:id', component: CustomerUpdateComponent },
+          { path: ':id', component: CustomerViewComponent }]
       }
-  ]
+    ]
   },
 
   { path: 'platform/category', component: CategoryComponent },
