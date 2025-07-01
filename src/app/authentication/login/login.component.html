@@ -1,7 +1,7 @@
 <div [class.dark-theme]="darkMode" class="login-container">
   <form [formGroup]="loginForm" (ngSubmit)="login()" class="login-form" novalidate>
     <img src="assets/Logo.png" alt="Logo" class="login-logo" />
-    <h1>Welkom terug</h1>
+    <h1>Welkom</h1>
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Email</mat-label>
@@ -16,11 +16,25 @@
 
     <mat-form-field appearance="fill" class="full-width">
       <mat-label>Wachtwoord</mat-label>
-      <input matInput type="password" formControlName="password" autocomplete="current-password" />
+      <input
+        matInput
+        [type]="hideLogin ? 'password' : 'text'"
+        formControlName="password"
+        autocomplete="current-password"
+      />
+      <!-- Jouw show-hide password knop als matSuffix zodat die rechts staat -->
+      <app-show-hide-password
+        matSuffix
+        [(hide)]="hideLogin"
+      ></app-show-hide-password>
+      
       <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
         Wachtwoord is verplicht
       </mat-error>
     </mat-form-field>
+    
+    
+    
 
     <div *ngIf="loginFailed" class="error-message">
       Onjuiste email of wachtwoord.

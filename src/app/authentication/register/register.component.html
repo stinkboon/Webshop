@@ -24,22 +24,23 @@
 
           <mat-form-field appearance="fill" class="full-width">
             <mat-label>Wachtwoord</mat-label>
-            <input matInput type="password" formControlName="password" />
+            <input matInput [type]="hideRegisterPassword ? 'password' : 'text'" formControlName="password" autocomplete="new-password" />
+            <app-show-hide-password [(hide)]="hideRegisterPassword" matSuffix></app-show-hide-password>
             <mat-error *ngIf="registerForm.get('password')?.hasError('required')">
               Wachtwoord is verplicht
             </mat-error>
           </mat-form-field>
-
+          
           <mat-form-field appearance="fill" class="full-width">
             <mat-label>Bevestig wachtwoord</mat-label>
-            <input matInput type="password" formControlName="confirmPassword" />
-            <mat-error *ngIf="registerForm.get('confirmPassword')?.hasError('required')">
-              Bevestig wachtwoord is verplicht
-            </mat-error>
-            <mat-error *ngIf="registerForm.errors?.['passwordMismatch'] && (registerForm.get('confirmPassword')?.touched || registerForm.get('confirmPassword')?.dirty)">
+            <input matInput [type]="hideRegisterConfirm ? 'password' : 'text'" formControlName="confirmPassword" autocomplete="new-password" />
+            <app-show-hide-password [(hide)]="hideRegisterConfirm" matSuffix></app-show-hide-password>
+            <mat-error *ngIf="registerForm.hasError('passwordMismatch')">
               Wachtwoorden komen niet overeen
             </mat-error>
           </mat-form-field>
+          
+          
 
           <button mat-raised-button color="primary" class="submit-button" [disabled]="registerForm.invalid" type="submit">
             <mat-spinner *ngIf="loading" diameter="20" strokeWidth="3"></mat-spinner>

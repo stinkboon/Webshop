@@ -1,12 +1,20 @@
 <mat-toolbar color="primary" class="header">
+  <a routerLink="/"></a>
 
-    <a>Mijn Webshop</a>
-  
-    <span class="spacer"></span>
+  <span class="spacer"></span>
 
-  
-    <button mat-flat-button  color='primary' class="accountbutton">
-      <mat-icon>person</mat-icon> Account
+    <button
+      mat-button
+      [matMenuTriggerFor]="menu"
+      class="accountbutton">
+      <mat-icon>person</mat-icon>
+      Account
     </button>
-  </mat-toolbar>
-  
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span>Uitloggen</span>
+      </button>
+    </mat-menu>
+</mat-toolbar>

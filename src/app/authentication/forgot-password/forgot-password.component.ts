@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Router, RouterModule } from '@angular/router';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-forgot-password',
@@ -19,13 +20,15 @@ import { MatButtonModule } from '@angular/material/button';
     MatSnackBarModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss']
 })
-export class ForgotPasswordComponent implements OnInit {
+export class ForgotPasswordComponent {
   forgotForm: FormGroup;
+  loading = false;
 
   constructor(
     private fb: FormBuilder,
@@ -34,25 +37,24 @@ export class ForgotPasswordComponent implements OnInit {
     private router: Router
   ) {
     this.forgotForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]]
+      email: ['', [Validators.required, Validators.email]],
     });
   }
 
-  ngOnInit(): void {}
-
-  sendReset() {
+  sendResetLink() {
     if (this.forgotForm.valid) {
-      const email = this.forgotForm.value.email;
-      // Veronderstel dat de backend op poort 5000 draait; pas dit aan indien nodig.
-      this.http.post('http://localhost:5103/api/auth/forgot-password', email, {
-        responseType: 'json'
-      }).subscribe({
+      this.loading = true;
+      const { email } = this.forgotForm.value;
+      this.http.post('http://localhost:5103/api/auth/forgot-password', { email }).subscribe({
         next: () => {
-          this.snackBar.open('Resetlink verzonden!', 'Sluiten', { duration: 3000 });
+          this.loading = false;
+          this.snackBar.open('Reset link is verzonden. Check je e-mail.', 'Sluiten', { duration: 4000 });
           this.router.navigate(['/login']);
         },
         error: (err) => {
-          this.snackBar.open(`Fout: ${err.error.message}`, 'Sluiten', { duration: 4000 });
+          this.loading = false;
+          const message = err?.error?.message || 'Er is een fout opgetreden';
+          this.snackBar.open(`Fout: ${message}`, 'Sluiten', { duration: 4000 });
         }
       });
     }

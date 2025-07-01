@@ -9,18 +9,8 @@ import { AuthService } from '../../core/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
-
-export const passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-  const password = control.get('password');
-  const confirmPassword = control.get('confirmPassword');
-
-  if (!password || !confirmPassword) {
-    return null;
-  }
-
-  return password.value === confirmPassword.value ? null : { passwordMismatch: true };
-};
+import { ShowHidePasswordComponent } from '../show-hide-password';
+import { passwordMatchValidator } from '../passwordvalidator';
 
 @Component({
   selector: 'app-register',
@@ -35,6 +25,7 @@ export const passwordMatchValidator: ValidatorFn = (control: AbstractControl): V
     MatButtonModule,
     MatCardModule,
     MatProgressSpinnerModule,
+    ShowHidePasswordComponent
   ],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
@@ -43,6 +34,8 @@ export class RegisterComponent {
   registerForm: FormGroup;
   errorMessage: string | null = null;
   successMessage: string | null = null;
+  hideRegisterPassword = true;
+  hideRegisterConfirm = true;  
 
 
   constructor(
@@ -51,11 +44,13 @@ export class RegisterComponent {
     private authService: AuthService,
     private snackBar: MatSnackBar
   ) {
+
     this.registerForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required],
     }, { validators: passwordMatchValidator });
+    
   }
 
   loading: boolean = false;

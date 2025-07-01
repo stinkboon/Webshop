@@ -7,6 +7,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ShowHidePasswordComponent } from "../show-hide-password";
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-login',
@@ -19,8 +21,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatProgressSpinnerModule
-  ],
+    MatProgressSpinnerModule,
+    ShowHidePasswordComponent,
+    MatIconModule, 
+],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
@@ -40,6 +44,8 @@ export class LoginComponent {
       password: ['', [Validators.required]]
     });
   }
+
+  hideLogin = true;
 
   login() {
     if (this.loginForm.valid) {
