@@ -1,74 +1,196 @@
-/* products.component.scss */
-
 .customer-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.table-container {
+  }
+  
+/* Layout van de bovenste rij met titel en zoekbalk */
+.header-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  /* Linkerkant: titel + knop */
+  .left-side {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Rechterkant: zoekbalk */
+  .right-side {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  
+  .filter-input {
     width: 100%;
-    overflow-x: auto;
-    margin: 2rem 0;
-}
+    max-width: 300px; /* Max breedte voor zoekbalk */
+    
+  }
+  
+  /* Import/export knoppen */
+  .action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
 
-table {
+  .icon {
+    margin-right: 8px;
+    font-size: 20px;
+  }
+  
+
+  .azure-button {
+    background-color: #1976d2; // Azure-ish blue (Material primary)
+    color: #fff;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 0 16px;
+    height: 36px;
+    line-height: 36px;
+    border-radius: 4px;
+    box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 
+                0px 2px 2px 0px rgba(0,0,0,0.14), 
+                0px 1px 5px 0px rgba(0,0,0,0.12);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  
+    &:hover {
+      background-color: #1565c0; // darken on hover
+    }
+  
+    input[type="file"] {
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+  }
+  
+  
+  
+  /* Tabelcontainer */
+  .table-wrapper {
+    overflow-x: auto;
+  }
+  mat-progress-bar {
+    margin-bottom: 8px;
+  }
+  
+  .customer-list {
+    margin-top: 1.5rem;
+  }
+  
+  .action-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  table {
     width: 100%;
     border-collapse: collapse;
-    background: #fff;
-    box-shadow: 0 10px 10px rgba(0,0,0,0.05);
-    border-radius: 8px;
     overflow: hidden;
+    background: #fff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
     font-family: 'Segoe UI', Arial, sans-serif;
-
-    th, td {
-        padding: 1rem 1.5rem;
-        text-align: left;
-        vertical-align: middle;
-    }
-
-    th {
-        background: #f5f6fa;
-        font-weight: 600;
-        color: #333;
-        border-bottom: 2px solid #e1e4ea;
-        letter-spacing: 0.03em;
-    }
-
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+  }
+  
+  table th,
+  table td {
+    padding: 1rem 1.5rem;
+    text-align: left;
+    vertical-align: middle;
+  }
+  
+  table th {
+    background: #94b3f1; // donkerder dan standaard
+    color: #333;
+    font-weight: 600;
+    border-bottom: 2px solid #cbd3e0;
+    letter-spacing: 0.03em;
+  }
+  
+  // Afgeronde bovenhoeken
+  table th:first-child {
+    border-top-left-radius: 12px;
+  }
+  table th:last-child {
+    border-top-right-radius: 12px;
+  }
+  
+  table tr {
+    transition: background 0.2s;
+  }
+  
+  table tr:nth-child(even) {
+    background: #f7f9fc;
+  }
+  
+  table tr:nth-child(odd) {
+    background: #ffffff;
+  }
+  
+  table tr:hover {
+    background: #edf3ff;
+  }
+  
+  table td {
+    color: #444;
+    border-bottom: 1px solid #e1e4ea;
+  }
+  
+  table td:last-child,
+  table th:last-child {
+    text-align: right;
+  }
+  
+  // Paginator styling
+  mat-paginator {
+    background-color: #fff;
+    border-radius: 0 0 12px 12px;
+    padding: 0.5rem 1rem;
+    margin-top: -4px; // optioneel: om visueel aan te sluiten op de tabel
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+    color: #333;
+    border-top: 1px solid #e1e4ea;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    table,
+    thead,
+    tbody,
+    th,
+    td,
     tr {
-        transition: background 0.2s;
+      display: block;
     }
-
-    tr:nth-child(even) {
-        background: #fafbfc;
+  
+    table th {
+      position: sticky;
+      top: 0;
+      background: #e1e6f0;
+      z-index: 2;
     }
-
-    tr:hover {
-        background: #f0f4ff;
+  
+    table td {
+      padding: 0.75rem 1rem;
     }
-
-    td {
-        border-bottom: 1px solid #e1e4ea;
-        color: #444;
-    }
-
-    td:last-child, th:last-child {
-        text-align: right;
-    }
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    table, thead, tbody, th, td, tr {
-        display: block;
-    }
-    th, td {
-        padding: 0.75rem 1rem;
-    }
-    th {
-        position: sticky;
-        top: 0;
-        background: #f5f6fa;
-        z-index: 2;
-    }
-}
+  }
+  

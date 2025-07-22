@@ -1,23 +1,26 @@
+.dashboard-container {
+  padding: 2rem;
+}
+
+.dashboard-header {
+  margin-bottom: 2rem;
+
+  h1 {
+    margin: 0;
+    font-size: 2rem;
+  }
+
+  span {
+    color: gray;
+  }
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
 .dashboard-card {
-  max-width: 700px;
-  margin: 20px auto;
-  padding: 20px;
-
-  mat-card-header {
-    margin-bottom: 15px;
-    mat-card-title {
-      font-weight: 700;
-      font-size: 1.5rem;
-    }
-    mat-card-subtitle {
-      font-size: 1rem;
-      color: #666;
-    }
-  }
-
-  canvas {
-    display: block;
-    width: 100% !important;
-    height: 350px !important;
-  }
+  padding: 1rem;
 }

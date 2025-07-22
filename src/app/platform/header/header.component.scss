@@ -5,7 +5,15 @@ a {
     display: flex;
     align-items: center;
   }
+  .token-timer {
+    font-size: 0.9rem;
+    color: white;
+    margin-right: 16px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
   
+
   .header {
     display: flex;
     justify-content: flex-end;

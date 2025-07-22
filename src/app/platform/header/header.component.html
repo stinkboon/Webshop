@@ -3,18 +3,22 @@
 
   <span class="spacer"></span>
 
-    <button
-      mat-button
-      [matMenuTriggerFor]="menu"
-      class="accountbutton">
-      <mat-icon>person</mat-icon>
-      Account
-    </button>
+  <span class="token-timer" *ngIf="tokenTimeValid > 0">
+    🔒 Token: {{ tokenTimeValid }}s
+  </span>
 
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="logout()">
-        <mat-icon>logout</mat-icon>
-        <span>Uitloggen</span>
-      </button>
-    </mat-menu>
+  <button
+    mat-button
+    [matMenuTriggerFor]="menu"
+    class="accountbutton">
+    <mat-icon>person</mat-icon>
+    {{ user?.firstName || 'Account' }}
+  </button>
+
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <span>Uitloggen</span>
+    </button>
+  </mat-menu>
 </mat-toolbar>

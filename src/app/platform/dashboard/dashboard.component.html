@@ -1,20 +1,45 @@
 <div *ngIf="user?.firstName; else notLoggedIn" class="dashboard-container">
-  <div class="dashboard">
-    <h1>Welkom {{ user.firstName }}</h1>
+  <div class="dashboard-header">
+    <h1>Welkom, {{ user.firstName }}</h1>
     <span>Je token is nog {{ tokenTimeValid }} seconden geldig</span>
   </div>
 
-  <mat-card class="dashboard-card">
-    <mat-card-header>
-      <mat-card-title>Dashboard Overview</mat-card-title>
-      <mat-card-subtitle>Monthly Data</mat-card-subtitle>
-    </mat-card-header>
-  </mat-card>
+  <div class="dashboard-grid">
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <mat-card-title>📦 Producten</mat-card-title>
+        <mat-card-subtitle>{{ totalProducts }} in totaal</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Bekijk en beheer je voorraad.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <mat-card-title>👥 Klanten</mat-card-title>
+        <mat-card-subtitle>{{ totalCustomers }} klanten</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Bekijk klantgegevens en bestellingen.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <mat-card-title>🟢 Actieve gebruikers</mat-card-title>
+        <mat-card-subtitle>{{ activeUsers }} vandaag</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>Gebruikers die vandaag zijn ingelogd.</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
 
 <ng-template #notLoggedIn>
-  <div class="dashboard">
+  <div class="dashboard-error">
     <h1>Welkom</h1>
-    <span>Je bent niet ingelogd. Hier zou je nooit mogen komen</span>
+    <span>Je bent niet ingelogd. Hier zou je nooit mogen komen.</span>
   </div>
 </ng-template>

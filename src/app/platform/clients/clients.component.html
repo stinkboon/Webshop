@@ -1,42 +1,88 @@
-<div class="customer-container">
-    <div class="customer-header">
-        <h1>Clienten</h1>
-        <button mat-raised-button color="primary" routerLink="/platform/clients/create">Nieuwe client</button>
-    </div>
-    <div class="customer-list">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Phone number</th>
-                    <th>Actions</th>
+<div class="table-container">
 
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let customer of customers">
-                    <td>{{ customer.firstName }}</td>
-                    <td>{{ customer.lastName }}</td>
-                    <td>{{ customer.email }}</td>
-                    <td>{{ customer.phoneNumber }}</td>
-     
-                    
-            
-                    <td>
-                        <button mat-icon-button color="primary" [routerLink]="['/platform/clients/edit', customer.id]">
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                        <button mat-icon-button color="primary" [routerLink]="['/platform/clients', customer.id]">
-                            <mat-icon>visibility</mat-icon>
-                        </button>
-                        <button mat-icon-button color="primary" (click)="deleteCustomer(customer.id)">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
+    <!-- Bovenste header -->
+
+    <div class="right-side">
+        <mat-form-field appearance="outline" class="filter-input">
+            <mat-label>Zoek</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Zoek op naam, email...">
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+    </div>
+
+    <div class="header-layout">
+   
+        <!-- Import/export knoppen -->
+        <div class="action-buttons">
+            <label class="mat-raised-button mat-primary azure-button file-upload-btn">
+                <mat-icon class="icon">upload</mat-icon>
+                Import CSV
+                <input type="file" accept=".csv" hidden (change)="importCSV($event)">
+            </label>
+
+            <button mat-raised-button color="primary" (click)="exportCSV()">Export CSV</button>
+            <button mat-raised-button color="accent" (click)="exportExcel()">Export Excel</button>
+        </div>
+
+        <div class="create-button">
+            <button mat-raised-button color="primary" routerLink="/platform/clients/create">
+                Nieuwe client
+            </button>
+        </div>
+    </div>
+
+    <!-- Loader
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar> -->
+
+    <div class="table-wrapper">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
+
+            <!-- Voornaam -->
+            <ng-container matColumnDef="firstName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name </th>
+                <td mat-cell *matCellDef="let customer"> {{ customer.firstName }} </td>
+            </ng-container>
+
+            <!-- Achternaam -->
+            <ng-container matColumnDef="lastName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </th>
+                <td mat-cell *matCellDef="let customer"> {{ customer.lastName }} </td>
+            </ng-container>
+
+            <!-- Email -->
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+                <td mat-cell *matCellDef="let customer"> {{ customer.email }} </td>
+            </ng-container>
+
+            <!-- Telefoon -->
+            <ng-container matColumnDef="phoneNumber">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone number </th>
+                <td mat-cell *matCellDef="let customer"> {{ customer.phoneNumber }} </td>
+            </ng-container>
+
+            <!-- Acties -->
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef> Actions </th>
+                <td mat-cell *matCellDef="let customer">
+                    <button mat-icon-button color="primary" [routerLink]="['/platform/clients/edit', customer.id]">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="primary" [routerLink]="['/platform/clients', customer.id]">
+                        <mat-icon>visibility</mat-icon>
+                    </button>
+                    <button mat-icon-button color="primary" (click)="deleteCustomer(customer.id)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
         </table>
+
+        <mat-paginator [pageSizeOptions]="[1, 5, 10, 25, 100]" showFirstLastButtons>
+        </mat-paginator>
     </div>
 </div>
