@@ -40,8 +40,8 @@
       Onjuiste email of wachtwoord.
     </div>
 
-    <button mat-raised-button color="primary" class="login-button" type="submit" [disabled]="loginForm.invalid || loading">
-      <mat-spinner *ngIf="loading" diameter="20" strokeWidth="3"></mat-spinner>
+    <button mat-raised-button color="accent" class="login-button" type="submit" [disabled]="loginForm.invalid || loading">
+      <mat-spinner *ngIf="loading" diameter="20" strokeWidth="3" color="accent"></mat-spinner>
       <span *ngIf="!loading">Inloggen</span>
     </button>
 

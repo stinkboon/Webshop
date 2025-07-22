@@ -1,5 +1,20 @@
-<mat-card class="dashboard-card">
-  <mat-card-header>
-    <mat-card-title>Dashboard Overview</mat-card-title>
-    <mat-card-subtitle>Monthly Data</mat-card-subtitle>
-  </mat-card-header>
+<div *ngIf="user?.firstName; else notLoggedIn" class="dashboard-container">
+  <div class="dashboard">
+    <h1>Welkom {{ user.firstName }}</h1>
+    <span>Je token is nog {{ tokenTimeValid }} seconden geldig</span>
+  </div>
+
+  <mat-card class="dashboard-card">
+    <mat-card-header>
+      <mat-card-title>Dashboard Overview</mat-card-title>
+      <mat-card-subtitle>Monthly Data</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+</div>
+
+<ng-template #notLoggedIn>
+  <div class="dashboard">
+    <h1>Welkom</h1>
+    <span>Je bent niet ingelogd. Hier zou je nooit mogen komen</span>
+  </div>
+</ng-template>

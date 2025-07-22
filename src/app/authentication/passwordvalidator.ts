@@ -1,12 +1,32 @@
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+// src/app/validators/password-match.validator.ts
+import { AbstractControl, ValidationErrors, ValidatorFn, FormGroup } from '@angular/forms';
 
-export const passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-  const password = control.get('password');
-  const confirmPassword = control.get('confirmPassword');
+export const passwordMatchValidator = (
+  passwordKey: string,
+  confirmPasswordKey: string
+): ValidatorFn => {
+  return (form: AbstractControl): ValidationErrors | null => {
+    const password = form.get(passwordKey);
+    const passwordRepeated = form.get(confirmPasswordKey);
 
-  if (!password || !confirmPassword) {
-    return null;
-  }
+    if (!password || !passwordRepeated) {
+      return null;
+    }
 
-  return password.value === confirmPassword.value ? null : { passwordMismatch: true };
+    // alleen vergelijken als beide velden iets bevatten
+    if (!password.value || !passwordRepeated.value) {
+      return null;
+    }
+
+    if (password.value !== passwordRepeated.value) {
+      passwordRepeated.setErrors({ passwordMismatch: true });
+      return { passwordMismatch: true };
+    } else {
+      // verwijder fout als het goed is
+      if (passwordRepeated.hasError('passwordMismatch')) {
+        passwordRepeated.setErrors(null);
+      }
+      return null;
+    }
+  };
 };

@@ -1,4 +1,4 @@
-<form [formGroup]="customerForm" (ngSubmit)="createCustomer()" class="client-form">
+<form [formGroup]="customerForm"  class="client-form">
 
     <h1 class="form-title">Nieuwe cliënt aanmaken</h1>
   
@@ -48,8 +48,9 @@
       </mat-form-field>
     </div>
   
-    <button mat-raised-button color="primary" [disabled]="!customerForm.valid" (click)="createCustomer()" class="create-client-btn">
-      Cliënt aanmaken
-    </button>
+    <button  mat-raised-button color="primary" [disabled]="!customerForm.valid" (click)="createCustomer()" class="create-client-btn">
+      <mat-spinner *ngIf="loading" diameter="20" strokeWidth="3" color="accent"></mat-spinner>
+      <span *ngIf="!loading">Client aanmaken</span>
+      </button>
   </form>
   

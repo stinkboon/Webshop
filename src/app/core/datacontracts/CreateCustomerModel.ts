@@ -1,5 +1,4 @@
 export interface CreateCustomerModel {
-    id: number;
     FirstName: string;
     LastName: string;
     Email: string;

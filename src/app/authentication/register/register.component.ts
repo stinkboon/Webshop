@@ -46,27 +46,31 @@ export class RegisterComponent {
   ) {
 
     this.registerForm = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required],
-    }, { validators: passwordMatchValidator });
-    
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      passwordRepeated: ['', Validators.required]
+    }, {
+      validators: passwordMatchValidator('password', 'passwordRepeated')
+    });
   }
 
   loading: boolean = false;
 
   register() {
     if (this.registerForm.valid) {
-      this.loading = true; // Set loading to true when the request starts
-      const { email, password } = this.registerForm.value;
-      this.authService.register({ email, password }).subscribe({
+      this.loading = true; 
+      const RegisterDto = this.registerForm.value;
+      this.authService.register(RegisterDto).subscribe({
         next: () => {
-          this.loading = false; // Set loading to false when the request completes successfully
+          this.loading = false; 
           this.snackBar.open('Registratie gelukt!', 'OK', {
             duration: 8000,
             panelClass: ['snackbar-success']
           });
 
+          
           this.router.navigate(['/login']);
         },
         error: (err: { error: { message: string; }; }) => {

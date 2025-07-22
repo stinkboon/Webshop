@@ -8,6 +8,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { CreateCustomerModel } from '../../../core/datacontracts/CreateCustomerModel';
 import { CustomerService } from '../../../core/services/customer.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -19,18 +21,23 @@ import { CustomerService } from '../../../core/services/customer.service';
     RouterModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule
   ],
   providers: [CustomerService],
   templateUrl: './client-create.component.html',
   styleUrls: ['./client-create.component.scss']
 })
 export  class CustomerCreateComponent {
-  customerForm: FormGroup;
+  public customerForm: FormGroup;
+
+  public loading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
     private customerService: CustomerService,
+    private snackBar: MatSnackBar,
     private router: Router
   ) {
     this.customerForm = this.fb.group({
@@ -48,9 +55,12 @@ export  class CustomerCreateComponent {
 
   createCustomer() {
     if (this.customerForm.valid) {
+      this.loading = true;
       const customer: CreateCustomerModel = this.customerForm.value;
       this.customerService.create(customer).subscribe({
         next: (_) => {
+          this.loading = false;
+          this.snackBar.open('Client succesvol aangemaakt.', 'Sluiten', { duration: 4000 });
           this.router.navigate(['/platform/clients']);
         },
         error: (err) => {

@@ -30,6 +30,7 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  
   loginFailed = false;
   loading = false;
   darkMode = false;
@@ -57,7 +58,7 @@ export class LoginComponent {
           localStorage.setItem('token', result.token);
           this.loginFailed = false;
           this.loading = false;
-          this.router.navigate(['/platform/products']);
+          this.router.navigate(['/platform/dashboard']);
         },
         error: () => {
           this.loginFailed = true;
